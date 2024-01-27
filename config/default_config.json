@@ -1,5 +1,9 @@
 {
     "resize": 256,
     "n_gaussians": 1000,
-    "max_init_scale": 100
+    "max_init_scale": 100,
+    "min_init_scale": 30,
+    "max_init_color": 0.1,
+    "init_lr": 1,
+    "max_iters": 1000
 }

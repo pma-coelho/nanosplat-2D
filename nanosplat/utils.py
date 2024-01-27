@@ -1,4 +1,5 @@
 import json
+import torch
 import torchvision
 import os
 
@@ -12,7 +13,7 @@ def load_image(image_path, resize=None):
     img = torchvision.io.read_image(image_path)
     if resize is not None:
         img = torchvision.transforms.Resize(resize, antialias=False)(img)
-    return img.permute((1, 2, 0))
+    return img.permute((1, 2, 0)) / 255
 
 
 def save_image(image, path):

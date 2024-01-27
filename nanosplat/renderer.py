@@ -38,19 +38,12 @@ def gaussian2D(x, position, angle, scaling_factors):
 class GaussianSplatRenderer:
 
     def __init__(self, res, device):
-        
-        # Keep canvas in memory to avoid new memory allocations
-        self.canvas = torch.zeros(res + (3,)).to(device)
 
         # Precompute pixel indices
-        self.x = torch.from_numpy(np.stack(np.mgrid[:res[0], :res[1]], axis=-1)).to(device)
-        self.x.requires_grad = False
+        self.x = torch.tensor(np.stack(np.mgrid[:res[0], :res[1]], axis=-1)).to(device)
 
-
-    def draw(self, positions, angles, scaling_factors, opacities, colors):
+    def draw(self, positions, angles, scaling_factors, colors):
         
         densities = gaussian2D(self.x, positions, angles, scaling_factors)
-        splats = densities[..., None] * opacities[..., None] * colors
-        self.canvas = torch.sum(splats, dim=-2)
-
-        return self.canvas
+        splats = densities[..., None] * colors
+        return torch.sum(splats, dim=-2)
