@@ -1,4 +1,5 @@
 {
+    "resize": 256,
     "n_gaussians": 1000,
     "max_init_scale": 100
 }

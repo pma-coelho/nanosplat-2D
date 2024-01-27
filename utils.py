@@ -8,8 +8,11 @@ def load_json(path):
     return content
 
 
-def load_image(image_path):
-    return torchvision.io.read_image(image_path).permute((1, 2, 0))
+def load_image(image_path, resize=None):
+    img = torchvision.io.read_image(image_path)
+    if resize is not None:
+        img = torchvision.transforms.Resize(resize, antialias=False)(img)
+    return img.permute((1, 2, 0))
 
 
 def save_image(image, path):

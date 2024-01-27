@@ -15,7 +15,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     config = load_json(args.config_path)
-    image = load_image(args.image_path)
+    image = load_image(args.image_path, resize=config['resize'])
 
     solver = GaussianSplatSolver(config)
     result = solver.solve(image)
