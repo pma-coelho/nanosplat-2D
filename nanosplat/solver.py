@@ -20,11 +20,11 @@ class GaussianSplatSolver:
 
 
     def init_parameters(self):
-        scaling_facter_range = self.config["max_init_scale"] - self.config["min_init_scale"] 
+        scaling_factor_range = self.config["max_init_scale"] - self.config["min_init_scale"] 
 
         positions       = torch.rand(self.ng, 2) * torch.tensor(self.res)
-        angles          = torch.rand(self.ng   ) * torch.pi
-        scaling_factors = torch.rand(self.ng, 2) * scaling_facter_range + self.config["min_init_scale"] 
+        angles          = torch.rand(self.ng) * torch.pi
+        scaling_factors = torch.rand(self.ng, 2) * scaling_factor_range + self.config["min_init_scale"] 
         colors          = torch.rand(self.ng, 3) * self.config["max_init_color"]
 
         parameters = list()
@@ -33,6 +33,13 @@ class GaussianSplatSolver:
             device_p.requires_grad = True
             parameters.append(device_p) 
         return tuple(parameters)
+    
+
+    def split_parameters(self):
+        positions, angles, scaling_factors, colors = self.parameters
+
+        parameters = torch.repeat_interleave(positions, 3, dim=1)
+
 
 
     @staticmethod
@@ -45,9 +52,9 @@ class GaussianSplatSolver:
         self.res = image.shape[0], image.shape[1]
 
         self.parameters = self.init_parameters()
-        self.renderer = GaussianSplatRenderer(self.res, self.device)
+        self.renderer = GaussianSplatRenderer(self.res, self.device, self.config['renderer'])
 
-        optimizer = torch.optim.SGD(self.parameters, lr=self.config["init_lr"])
+        optimizer = torch.optim.Adam(self.parameters, lr=self.config["init_lr"])
 
         iter_bar = tqdm(range(self.config["max_iters"]))
         for i in iter_bar:

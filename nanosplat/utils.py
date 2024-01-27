@@ -11,7 +11,7 @@ def load_json(path):
 
 def load_image(image_path, resize=None):
     img = torchvision.io.read_image(image_path)
-    if resize is not None:
+    if resize is not None and resize != -1:
         img = torchvision.transforms.Resize(resize, antialias=False)(img)
     return img.permute((1, 2, 0)) / 255
 
