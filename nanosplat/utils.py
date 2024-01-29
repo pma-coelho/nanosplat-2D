@@ -3,6 +3,7 @@ import torch
 import torchvision
 import os
 
+
 def load_json(path):
     with open(path) as f:
         content = json.load(f)
