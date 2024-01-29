@@ -18,7 +18,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("image_path", help="Path to image.")
     parser.add_argument("--config_path", help="Path to JSON configuration file.", default="config/default_config.json")
-    parser.add_argument("--results_folder", help="Path to JSON configuration file.", default="results")
+    parser.add_argument("--results_folder", help="Path to results folder.", default="results")
     args = parser.parse_args()
 
     # Load config and image
