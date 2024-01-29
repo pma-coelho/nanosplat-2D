@@ -37,7 +37,7 @@ def gaussian2D(x, position, angle, scaling_factors):
     and s is the diagonal matrix of scaling factors.
 
     We then compute the squared mahalanobis distance as D @ D.T,
-    where D = R @ (x-p).T @ s^(-1/2)
+    where D = R @ (x-p).T @ s^(-1)
 
     :param torch.tensor x: Pixel indices tensor with shape (..., 2)
     :param torch.tensor position: Position tensor with shape (N, 2)
