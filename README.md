@@ -40,7 +40,7 @@ Can also use CPU but it will run significantly slower.
 
 ## Example Results
 
-Using the default config:
+Using the default config, <10 minutes on a GTX1060 6Gb:
 
 | Input | Result |
 :-------------------------:|:-------------------------:
