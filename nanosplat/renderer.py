@@ -66,7 +66,7 @@ class GaussianSplatRenderer:
         # Precompute pixel indices
         self.x = torch.tensor(np.stack(np.mgrid[:res[0], :res[1]], axis=-1)).to(device)
 
-        # Precompute tile splices
+        # Precompute tile slices
         self.tile_slices = self.get_tile_slices()
 
 
@@ -102,8 +102,8 @@ class GaussianSplatRenderer:
         Create mask to filter out gaussians that are too far (>tolerance) away from a tile.
         
         :param tuple[slice, slice] tile_slice: Index slices to select tile from image.
-        :param torch.tensor positions: Position tensor with shape (N, 2)
-        :param torch.tensor scaling_factors: Scaling factors tensor with shape (N, 2)
+        :param torch.tensor positions: Guassian position tensor with shape (N, 2)
+        :param torch.tensor scaling_factors: Guassian scaling factors tensor with shape (N, 2)
 
         :return: Boolean mask that is True only for gaussians which should be rendered in a tile.
         :rtype: torch.tensor
@@ -127,10 +127,10 @@ class GaussianSplatRenderer:
         Draw gaussians on canvas. Drawing is performed by tile so that far away gaussians can be skipped.
 
         :param torch.tensor x: Pixel indices tensor with shape (..., 2)
-        :param torch.tensor positions: Position tensor with shape (N, 2)
-        :param torch.tensor angles: Angle tensor with shape (N)
-        :param torch.tensor scaling_factors: Scaling factors tensor with shape (N, 2)
-        :param torch.tensor colors: Colors tensor with shape (N, 3)
+        :param torch.tensor positions: Guassian positions tensor with shape (N, 2)
+        :param torch.tensor angles: Guassian angles tensor with shape (N)
+        :param torch.tensor scaling_factors: Guassian scaling factors tensor with shape (N, 2)
+        :param torch.tensor colors: Guassian colors tensor with shape (N, 3)
 
         :return: Canvas filled with gaussians
         :rtype: torch.tensor

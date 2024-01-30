@@ -47,7 +47,7 @@ class GaussianSplatSolver:
 
     @staticmethod
     def mse_loss(x, y):
-        '''L2 pixel loss for to image tensors of equal shape'''
+        '''L2 pixel loss for two image tensors of equal shape'''
 
         return torch.mean((x - y)**2)
 
@@ -56,10 +56,10 @@ class GaussianSplatSolver:
         '''
         Create gaussian splat approximation of input image.
 
-        :param torch.tensor image: Image tensor with shape (3, H, W)
-        :param str output_folder: The recipient of the message
+        :param torch.tensor image: Image tensor with shape (H, W, 3)
+        :param str output_folder: Path ot folder to save results
 
-        :return: Gaussian splat image tensor with shape (3, H, W)
+        :return: Gaussian splat image tensor with shape (H, W, 3)
         :rtype: torch.tensor
         '''
 
